@@ -1,0 +1,7 @@
+<h2>Categories</h2>
+
+
+  <% @category.post_categories.each do |pc| %>
+   <h3> Post: <%= link_to pc.post.title, post_path(pc.post) %> </h3><br>
+   <h3> Content: <%= pc.post.content%></h3>
+  <% end %>
