@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    # binding.pry
   end
 
   def index
@@ -13,16 +14,22 @@ class PostsController < ApplicationController
 
   def create
     # binding.pry
-    if post_params[:categories_attributes][:"0"][:name]== ""
         post = Post.create(post_params)
-        post.categories = nil
-        post.save
+      
         redirect_to post
+
+  end
+
+  def update
+    @post = Post.find(params[:id])
+
+    @post.comments(post_params)
+binding.pry
+    if @post.save
+      redirect_to post_path(@post)
     else
-        post = Post.create(post_params)
-        redirect_to post
+      render :edit
     end
-    
   end
 
   private

@@ -1,1 +1,27 @@
 
+<h2>Title: <%= @post.title %></h2><br>
+<h2>Content: <%= @post.content %></h2><br>
+
+<% @post.categories.each do |category|%>
+    <%= category.name%><br>
+<%end%><br>
+
+
+
+Comments:
+    <% @post.comments.each do |comment|%>
+        <%= comment.content%>
+    <%end%><br>
+
+New Comment:
+<%= form_for @post do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %> 
+    <%= f.fields_for :comments, @post.comments.build do |comment_content| %>
+        <%= comment_content.text_field :content %>
+    <% end %>
+    
+<%= options_from_collection_for_select(User.all, :id, :username) %>
+
+    <%= f.submit %>
+<%end%>
+
