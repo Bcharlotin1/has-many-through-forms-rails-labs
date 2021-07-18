@@ -11,4 +11,13 @@ class Post < ActiveRecord::Base
       self.categories << category
     end
   end
+
+  def users_unique
+    @user = []
+    self.comments.each do |comment|
+       @user << comment.user
+    end
+    @user.uniq
+      
+  end 
 end
