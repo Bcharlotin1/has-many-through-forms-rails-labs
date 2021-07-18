@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    # binding.pry
+  
+  
   end
 
   def index
@@ -24,7 +25,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     @post.comments(post_params)
-binding.pry
+
     if @post.save
       redirect_to post_path(@post)
     else

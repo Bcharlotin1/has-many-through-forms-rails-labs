@@ -2,25 +2,35 @@
 <h2>Title: <%= @post.title %></h2><br>
 <h2>Content: <%= @post.content %></h2><br>
 
+Category: <br>
 <% @post.categories.each do |category|%>
     <%= category.name%><br>
 <%end%><br>
 
+All Users: <br>
+<% @post.users.distinct.each do |user|%>
+    <%= link_to user.username, user_path(user)%><br>
+<%end%><br>
 
 
-Comments:
+Comments:<br>
     <% @post.comments.each do |comment|%>
-        <%= comment.content%>
+        <%=comment.user.username %> says: <%=comment.content%><br>
     <%end%><br>
 
 New Comment:
-<%= form_for @post do |f| %>
+
+
+<%= form_for @post.comments.build do |f| %>
     <%= f.hidden_field :post_id, value: @post.id %> 
-    <%= f.fields_for :comments, @post.comments.build do |comment_content| %>
-        <%= comment_content.text_field :content %>
-    <% end %>
-    
-<%= options_from_collection_for_select(User.all, :id, :username) %>
+        <%= f.text_field :content %><br>
+    New User:
+        <%= f.fields_for :user, User.create do |user| %>
+         <label for="comment_user_attributes_username">Username</label>:
+        <%= user.text_field :username%>
+        <% end %><br>
+    Select User:
+    <%= f.collection_select :user_id, User.all, :id, :username %><br>
 
     <%= f.submit %>
 <%end%>
