@@ -12,12 +12,12 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def users_unique
-    @user = []
-    self.comments.each do |comment|
-       @user << comment.user
-    end
-    @user.uniq
+  # def users_unique
+  #   @user = []
+  #   self.comments.each do |comment|
+  #      @user << comment.user.username
+  #   end
+  #   @user.uniq
       
-  end 
+  # end 
 end

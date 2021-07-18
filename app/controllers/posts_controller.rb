@@ -12,9 +12,17 @@ class PostsController < ApplicationController
   end
 
   def create
- 
-    post = Post.create(post_params)
-    redirect_to post
+    # binding.pry
+    if post_params[:categories_attributes][:"0"][:name]== ""
+        post = Post.create(post_params)
+        post.categories = nil
+        post.save
+        redirect_to post
+    else
+        post = Post.create(post_params)
+        redirect_to post
+    end
+    
   end
 
   private
